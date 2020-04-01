@@ -1,6 +1,6 @@
-{% extends "_layout.html" %}
+{% extends "layout.html" %}
 {% block content %}
-<form action="{{ url_for('submit') }}" method="POST">
+<form action="{{ url_for('create') }}" method="POST">
     <div class="form-group">
       <label for="store_name">Enter Store Name:</label>
       <input type='text' name='store_name' class="form-control" />

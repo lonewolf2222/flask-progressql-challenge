@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, flash, url_for
 from models import *
 
 app = Flask(__name__)
+app.secret_key = b'\xecS\xca\xb0\xc21\n\x0e'
 
 @app.before_request
 def before_request():
@@ -25,8 +26,8 @@ def index():
 def store():
     return render_template('store.html')
 
-@app.route("/submit", methods=["POST"])
-def submit():
+@app.route("/create", methods=["POST"])
+def create():
     store_name = request.form.get('store_name')
     # s = Store.create(name=store_name)
     try:
