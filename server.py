@@ -32,10 +32,10 @@ def create():
     # s = Store.create(name=store_name)
     try:
         Store.create(name=store_name)
-        #flash("Store created")
+        flash("Store created")
         return redirect(url_for('store'))
     except:
-        #flash("Store name exists!")
+        flash("Store name exists!")
         return redirect(url_for('store'))
 
 if __name__ == '__main__':
