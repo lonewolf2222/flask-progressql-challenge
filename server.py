@@ -55,6 +55,24 @@ def store_create():
         flash("Store name exists!")
         return redirect(url_for('store_new'))
 
+@app.route("/store/edit/<id>")
+def store_edit(id):
+    id =int(id)
+    store = Store.get_by_id(id)
+    return render_template('store_edit.html', store=store)
+
+@app.route("/store/<store_id>", methods=["POST"])
+def store_update(store_id):
+    new_name = request.form.get('new_name')
+    try:
+        query = Store.update(name =new_name).where(Store.id == store_id)
+        query.execute()
+        flash("Store name updated")
+        return redirect(url_for('store_edit', id=store_id))
+    except:
+        flash("An error has occurred")
+        return redirect(url_for('store_edit', id=store_id))
+
 @app.route("/warehouse/new")
 def warehouse_new():
     stores = Store.select()
