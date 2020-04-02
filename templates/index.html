@@ -1,8 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <h1>Homepage</h1>
-<a href="{{ url_for('store') }}">Create Store</a>
+<a href ="{{ url_for('store_index') }}"> Show Stores</a>
 <br>
-<a href="{{ url_for('get_store') }}">Create Warehouse</a>
+<a href="{{ url_for('store_new') }}">Create Store</a>
+<br>
+<a href="{{ url_for('warehouse_new') }}">Create Warehouse</a>
 {% endblock %}
 

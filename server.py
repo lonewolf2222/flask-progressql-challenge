@@ -22,37 +22,42 @@ def migrate():
 def index():
    return render_template('index.html')
 
-@app.route("/store")
-def store():
-    return render_template('store.html')
+@app.route("/store_index")
+def store_index():
+    stores = Store.select()
+    return render_template('store_index.html', stores= stores)
 
-@app.route("/create_store", methods=["POST"])
-def create_store():
+@app.route("/store_new")
+def store_new():
+    return render_template('store_new.html')
+
+@app.route("/store_create", methods=["POST"])
+def store_create():
     store_name = request.form.get('store_name')
     try:
         Store.create(name=store_name)
         flash("Store created")
-        return redirect(url_for('store'))
+        return redirect(url_for('store_new'))
     except:
         flash("Store name exists!")
-        return redirect(url_for('store'))
+        return redirect(url_for('store_new'))
 
-@app.route("/get_store")
-def get_store():
+@app.route("/warehouse_new")
+def warehouse_new():
     stores = Store.select()
-    return render_template('warehouse.html', stores=stores)
+    return render_template('warehouse_new.html', stores=stores)
 
-@app.route("/create_warehouse",methods=["POST"])
-def create_warehouse():
+@app.route("/warehouse_create",methods=["POST"])
+def warehouse_create():
     location = request.form.get('location')
     store = request.form.get('store')
     try:
         Warehouse.create(store=store, location=location)
         flash("Warehouse created")
-        return redirect(url_for('get_store'))
+        return redirect(url_for('warehouse_new'))
     except:
         flash("An error has occurred")
-        return redirect(url_for('get_store'))
+        return redirect(url_for('warehouse_new'))
 
 if __name__ == '__main__':
    app.run()
