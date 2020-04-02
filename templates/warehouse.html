@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<p>Add Warehouse</p>
+
+<form action="{{ url_for('create_warehouse')}}" method="POST">
+    <div class="form-group">
+        <label for="location"> Enter Location:</label>
+        <input type='text' name='location' class="form-control" />
+    </div>
+    <label>Choose a store</label>
+    <select name='store'>
+        <option disabled selected value> -- select an option -- </option>
+        {% for store in stores %}
+        <option value={{store}}>{{store.name}}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

@@ -26,10 +26,9 @@ def index():
 def store():
     return render_template('store.html')
 
-@app.route("/create", methods=["POST"])
-def create():
+@app.route("/create_store", methods=["POST"])
+def create_store():
     store_name = request.form.get('store_name')
-    # s = Store.create(name=store_name)
     try:
         Store.create(name=store_name)
         flash("Store created")
@@ -37,6 +36,23 @@ def create():
     except:
         flash("Store name exists!")
         return redirect(url_for('store'))
+
+@app.route("/get_store")
+def get_store():
+    stores = Store.select()
+    return render_template('warehouse.html', stores=stores)
+
+@app.route("/create_warehouse",methods=["POST"])
+def create_warehouse():
+    location = request.form.get('location')
+    store = request.form.get('store')
+    try:
+        Warehouse.create(store=store, location=location)
+        flash("Warehouse created")
+        return redirect(url_for('get_store'))
+    except:
+        flash("An error has occurred")
+        return redirect(url_for('get_store'))
 
 if __name__ == '__main__':
    app.run()
