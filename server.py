@@ -27,6 +27,19 @@ def store_index():
     stores = Store.select()
     return render_template('store_index.html', stores= stores)
 
+@app.route("/store/<id>")
+def store_show(id):
+    id = int(id)
+    stores = Store.select()
+    if len(stores) >= id:
+        store = Store.get_by_id(id)
+        warehouses = store.warehouses
+        num_warehouses = len(warehouses)
+        store_name = store.name
+        return render_template('store_show.html', num_warehouses=num_warehouses, store_name=store_name)
+    else:
+        return redirect(url_for('index'))
+
 @app.route("/store_new")
 def store_new():
     return render_template('store_new.html')
