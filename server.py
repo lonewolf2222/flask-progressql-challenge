@@ -22,7 +22,7 @@ def migrate():
 def index():
    return render_template('index.html')
 
-@app.route("/store_index")
+@app.route("/store/index")
 def store_index():
     stores = Store.select()
     return render_template('store_index.html', stores= stores)
@@ -40,11 +40,11 @@ def store_show(id):
     else:
         return redirect(url_for('index'))
 
-@app.route("/store_new")
+@app.route("/store/new")
 def store_new():
     return render_template('store_new.html')
 
-@app.route("/store_create", methods=["POST"])
+@app.route("/store/create", methods=["POST"])
 def store_create():
     store_name = request.form.get('store_name')
     try:
@@ -55,12 +55,12 @@ def store_create():
         flash("Store name exists!")
         return redirect(url_for('store_new'))
 
-@app.route("/warehouse_new")
+@app.route("/warehouse/new")
 def warehouse_new():
     stores = Store.select()
     return render_template('warehouse_new.html', stores=stores)
 
-@app.route("/warehouse_create",methods=["POST"])
+@app.route("/warehouse/create",methods=["POST"])
 def warehouse_create():
     location = request.form.get('location')
     store = request.form.get('store')
