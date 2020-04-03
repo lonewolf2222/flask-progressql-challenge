@@ -1,11 +1,16 @@
 {% extends "layout.html" %}
 {% block content %}
-<p> Stores</p>
+<h3> Stores </h3>
+
 <ul class="list-group">
     {% for store in stores %}
+    <form action="{{ url_for('store_destroy') }}" method="POST">
     <li class="list-group-item">
-        {{store.name}}
+        <input type="radio" name="store_name", value="{{store.name}}"/>
+        {{store.name}} &emsp; &emsp;{{store.warehouses | length }} &emsp; &emsp;
+        <button type="submit"> Delete </button>
     </li>
+    </form>
     {% endfor %}
 </ul>
 {% endblock %}

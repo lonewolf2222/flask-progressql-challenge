@@ -73,6 +73,19 @@ def store_update(store_id):
         flash("An error has occurred")
         return redirect(url_for('store_edit', id=store_id))
 
+@app.route("/stores")
+def stores():
+    stores = Store.select()
+    return render_template('store_index.html', stores=stores)
+
+@app.route("/stores/delete", methods=["POST"])
+def store_destroy():
+    store_name = request.form.get('store_name')
+    store = Store.get(Store.name == store_name)
+    store.delete_instance()
+    flash("Store deleted")
+    return redirect(url_for('stores'))
+
 @app.route("/warehouse/new")
 def warehouse_new():
     stores = Store.select()
