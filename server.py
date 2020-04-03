@@ -47,13 +47,13 @@ def store_new():
 @app.route("/store/create", methods=["POST"])
 def store_create():
     store_name = request.form.get('store_name')
-    try:
-        Store.create(name=store_name)
+    s = Store(name=store_name)
+
+    if s.save():
         flash("Store created")
         return redirect(url_for('store_new'))
-    except:
-        flash("Store name exists!")
-        return redirect(url_for('store_new'))
+    else:
+        return render_template('store_new.html', errors=s.errors)
 
 @app.route("/store/edit/<id>")
 def store_edit(id):
